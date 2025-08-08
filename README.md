@@ -1,1 +1,1 @@
-Created by Socrates
+Created by Socrates team

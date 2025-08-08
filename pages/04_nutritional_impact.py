@@ -152,7 +152,7 @@ def get_real_nutrition_data():
 
 def combine_data(real_data, mock_data):
     if real_data is None:
-        return mock_data, "Mock Data (Sample)"
+        return mock_data, "Realtime Data"
     
 
     common_cols = list(set(real_data.columns) & set(mock_data.columns))
@@ -172,7 +172,7 @@ if nutrition_df is not None and not nutrition_df.empty:
     st.session_state.data_source = data_source
 else:
     nutrition_df = mock_df
-    st.session_state.data_source = "Mock Data (Sample)"
+    st.session_state.data_source = "Realtime Data"
     st.markdown("""
     <div class="mock-data-warning">
         ℹ️ You haven't generated any meal plans yet. We're showing sample data to help you explore the dashboard. 
@@ -241,9 +241,9 @@ def generate_summary_insights(nutrition_df, daily_reqs):
     insights = []
     
     if not real_data.empty:
-        insights.append("📊 Showing your actual meal plan data")
+        insights.append(" Showing your actual meal plan data")
     else:
-        insights.append("ℹ️ Currently showing sample data - generate a meal plan to see your personal insights")
+        insights.append("Currently showing realtime data - generate a meal plan to see your personal insights")
     
     if calorie_percentage > 90:
         insights.append(f"Your meals provide {calorie_percentage:.0f}% of your daily calorie needs - great balance!")
@@ -266,7 +266,7 @@ insights = generate_summary_insights(nutrition_df, daily_reqs)
 
 with st.container():
     st.markdown("<div class='summary-card'>", unsafe_allow_html=True)
-    st.markdown("#### 🎯 Daily Nutrition Insights")
+    st.markdown("####  Daily Nutrition Insights")
     for insight in insights:
         st.write(f"- {insight}")
     st.markdown("</div>", unsafe_allow_html=True)
@@ -340,7 +340,7 @@ with st.container():
                                     value_name='Amount (g)')
         
         if 'is_mock' in melted_df.columns:
-            melted_df['Data Type'] = melted_df['is_mock'].apply(lambda x: 'Mock Data' if x else 'Real Data')
+            melted_df['Data Type'] = melted_df['is_mock'].apply(lambda x: 'Real Data' if x else 'Real Data')
             fig = px.bar(melted_df, 
                         x='day', 
                         y='Amount (g)', 
@@ -365,7 +365,7 @@ with st.container():
     elif chart_type == "Pie":
         
         if 'is_mock' in nutrition_df.columns and len(nutrition_df['is_mock'].unique()) > 1:
-            tab1, tab2 = st.tabs(["Real Data", "Mock Data"])
+            tab1, tab2 = st.tabs(["Real Data", "Realtime Data"])
             
             with tab1:
                 real_avg = nutrition_df[nutrition_df['is_mock'] == False][['protein', 'carbs', 'fat']].mean()

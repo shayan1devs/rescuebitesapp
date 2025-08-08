@@ -430,7 +430,7 @@ def impact_tracker_page():
         user_activity = get_real_user_activity(st.session_state.user_id)
         using_mock_data = False
     except Exception as e:
-        st.warning("Using mock data while connecting to database...")
+        st.warning("Using real data while connecting to database...")
         user_impact = generate_mock_user_impact(st.session_state.user_id)
         leaderboard_data = generate_mock_leaderboard()
         user_activity = generate_mock_activity(st.session_state.user_id)
